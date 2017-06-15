@@ -24,11 +24,11 @@ function runBot() {
     if (inRange) {
       console.log('Pinging myself to stay awake.')
       setInterval( () => {
-          https.get("https://yourUsername-yourGAPingBotName.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app
+          https.get("https://joecal-gapingbot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app
       }, 1800000); // every 30 minutes
     } else {
       console.log("Pinging GAbot, then I'm going to sleep.")
-      https.get("https://yourUsername-yourGAbotName.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
+      https.get("https://joecal-gabot.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
     }
   }
 
