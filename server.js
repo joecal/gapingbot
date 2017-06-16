@@ -1,13 +1,13 @@
-const express       = require('express');
-const app           = express();
-const https         = require("https");
-const Moment        = require('moment');
-const MomentRange   = require('moment-range');
-const moment        = MomentRange.extendMoment(Moment);
-const when          = moment();
-const timeInterval  = [moment('22', 'HH'), moment('05', 'HH')];
-const range         = moment.range(timeInterval);
-const inRange       = when.within(range);
+const express = require('express');
+const app = express();
+const https = require("https");
+const Moment = require('moment');
+const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(Moment);
+const when = moment().utcOffset("-04:00");
+const timeInterval = [moment('00', 'HH'), moment('06', 'HH')];
+const range = moment.range(timeInterval);
+const inRange = when.within(range);
 
 const server = app.listen(process.env.PORT || 3000, listen);
 
@@ -23,17 +23,18 @@ function runBot() {
   try {
     if (inRange) {
       console.log('Pinging myself to stay awake.')
-      setInterval( () => {
-          https.get("https://joecal-gapingbot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app
-      }, 1800000); // every 30 minutes
+      setTimeout(() => {
+        https.get("https://yourGAPingBot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app URL
+      }, 1800000); // 1800000 = 30 minutes
+      setTimeout(runBot, 1800000);
     } else {
       console.log("Pinging GAbot, then I'm going to sleep.")
-      https.get("https://joecal-gabot.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
+      https.get("https://yourGAbot.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
     }
-  }
-
-  catch (error) {
+  } catch (error) {
     console.log('Caught this error: ', error)
+    console.log("Pinging again...")
+    setTimeout(runBot, 10000); // 10000 = 10 seconds
   }
 
 };

@@ -28,13 +28,18 @@ Before deployment, make sure you already have your [GAbot](https://github.com/jo
 try {
   if (inRange) {
     console.log('Pinging myself to stay awake.')
-    setInterval( () => {
-        https.get("https://yourUsername-yourGAPingBotName.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app URL
-    }, 1800000); // every 30 minutes
+    setTimeout(() => {
+      https.get("https://yourGAPingBot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app URL
+    }, 1800000); // 1800000 = 30 minutes
+    setTimeout(runBot, 1800000);
   } else {
     console.log("Pinging GAbot, then I'm going to sleep.")
-    https.get("https://yourUsername-yourGAbotName.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
+    https.get("https://yourGAbot.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
   }
+} catch (error) {
+  console.log('Caught this error: ', error)
+  console.log("Pinging again...")
+  setTimeout(runBot, 10000); // 10000 = 10 seconds
 }
 ```
 
