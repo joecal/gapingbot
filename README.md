@@ -28,10 +28,7 @@ Before deployment, make sure you already have your [GAbot](https://github.com/jo
 try {
   if (inRange) {
     console.log('Pinging myself to stay awake.')
-    setTimeout(() => {
-      https.get("https://yourGAPingBot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app URL
-    }, 1800000); // 1800000 = 30 minutes
-    setTimeout(runBot, 1800000);
+    https.get("https://yourGAPingBot.herokuapp.com/"); // <<= Replace with your GAPingBot heroku app URL
   } else {
     console.log("Pinging GAbot, then I'm going to sleep.")
     https.get("https://yourGAbot.herokuapp.com/"); // <<= Replace with your GAbot heroku app URL
